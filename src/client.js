@@ -14,6 +14,12 @@ const socket = io("http://localhost:3000", {
 
 const App = ({}) => {
   const [data, setData] = useState([]);
+  const [entry, setEntry] = useState();
+
+  const handleSubmit = () => {
+    console.log(entry);
+    socket.send("hello");
+  };
 
   // 1. listen for a cpu event and update the state
   useEffect(() => {
@@ -24,8 +30,8 @@ const App = ({}) => {
 
   // Render Data
   return (
-    <div>
-      <Header />
+    <div className='app'>
+      <Header entry={entry} setEntry={setEntry} handleSubmit={handleSubmit} />
       <DisplayPlots data={data} />
     </div>
   );

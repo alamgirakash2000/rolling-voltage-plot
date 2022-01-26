@@ -7,6 +7,7 @@ import "bootstrap/dist/js/bootstrap.bundle";
 import { useEffect, useState } from "react";
 import DisplayPlots from "./components/DisplayPlots";
 import Header from "./components/Header";
+import axios from "axios";
 
 const socket = io("http://localhost:3000", {
   transports: ["websocket", "polling"],
@@ -18,7 +19,24 @@ const App = ({}) => {
 
   const handleSubmit = () => {
     console.log(entry);
-    socket.send("hello");
+    if (entry > 50 && entry < 2500) {
+      try {
+        axios.post("http://localhost:3000", parseInt(entry));
+      } catch {
+        (err) => window.alert(err.message);
+      }
+      setEntry(0);
+    } else {
+      window.alert("Please enter a value between 50 to 2500");
+      setEntry(0);
+    }
+    // try {
+    //   axios
+    //     .post("http://localhost:3000", entry)
+    //     .then((res) => console.log(res));
+    // } catch {
+    //   (err) => window.alert(err.message);
+    // }
   };
 
   // 1. listen for a cpu event and update the state

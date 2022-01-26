@@ -6,7 +6,7 @@ const Header = ({ entry, setEntry, handleSubmit }) => {
       <div className='container'>
         <div className='entry'>
           <input
-            value={entry}
+            placeholder='Number of visible data (50-2500)'
             onChange={(e) => setEntry(e.target.value)}
             type='number'
           />

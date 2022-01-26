@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 // Importing Plotly
 import Plotly from "plotly.js-basic-dist-min";
@@ -9,19 +9,26 @@ const Plot = createPlotlyComponent(Plotly);
 export default function PlotComponent({ data, title }) {
   const [myData, setMyData] = useState(data);
   const [open, setOpen] = useState(false);
+  const [pause, setPause] = useState(false);
 
-  useState(() => {
+  useEffect(() => {
     setMyData(data);
+  }, []);
+
+  useEffect(() => {
+    if (!pause) {
+      setMyData(data);
+    }
   }, [data]);
 
   return (
     <div className='plot'>
-      {open && <FullScreenPlot data={data} setOpen={setOpen} title={title} />}
+      {open && <FullScreenPlot data={myData} setOpen={setOpen} title={title} />}
       {data && (
         <Plot
           data={[
             {
-              y: data,
+              y: myData,
               type: "line",
               marker: { color: "red" },
             },
@@ -30,7 +37,17 @@ export default function PlotComponent({ data, title }) {
         />
       )}
       <div className='btns'>
-        <button className='btn btn-info'>PAUSE</button>
+        {!pause && (
+          <button onClick={() => setPause(true)} className='btn btn-info'>
+            PAUSE
+          </button>
+        )}
+        {pause && (
+          <button onClick={() => setPause(false)} className='btn btn-warning'>
+            RESUME
+          </button>
+        )}
+
         <button onClick={() => setOpen(true)} className='btn btn-success'>
           FULL SCREEN
         </button>

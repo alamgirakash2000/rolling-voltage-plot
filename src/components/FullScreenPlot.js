@@ -10,7 +10,7 @@ export default function FullScreenPlot({ data, title, setOpen }) {
   };
 
   return (
-    <div className='fullScreen'>
+    <div className='fullScreen position-fixed sticky-top'>
       <button onClick={handleClose} className='btn-lg btn-block btn-danger'>
         CLOSE
       </button>

@@ -1,4 +1,20 @@
-const server = require("http").createServer();
+const server = require("http").createServer((req, res) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  if (req.method == "GET") {
+    res.write("Hello World!");
+    res.end();
+  } else if (req.method == "POST") {
+    var body = "";
+    req.on("data", function (data) {
+      body += data;
+    });
+    req.on("end", function () {
+      number_of_data = parseInt(body);
+      increment = parseInt(parseInt(body) / 100);
+    });
+  }
+});
+
 const fs = require("fs");
 const csv = require("csv-parser");
 
@@ -64,30 +80,31 @@ io.on("connection", (client) => {
 
 server.listen(3000);
 
+let increment = 1;
 const increaseNumber = () => {
-  if (n1 + number_of_data + 5 < CHANNEL1.length) {
-    n1 += 1;
+  if (n1 + number_of_data + 20 < CHANNEL1.length) {
+    n1 += increment;
   }
-  if (n2 + number_of_data + 5 < CHANNEL2.length) {
-    n2 += 1;
+  if (n2 + number_of_data + 20 < CHANNEL2.length) {
+    n2 += increment;
   }
-  if (n3 + number_of_data + 5 < CHANNEL3.length) {
-    n3 += 1;
+  if (n3 + number_of_data + 20 < CHANNEL3.length) {
+    n3 += increment;
   }
-  if (n4 + number_of_data + 5 < CHANNEL4.length) {
-    n4 += 1;
+  if (n4 + number_of_data + 20 < CHANNEL4.length) {
+    n4 += increment;
   }
-  if (n5 + number_of_data + 5 < CHANNEL5.length) {
-    n5 += 1;
+  if (n5 + number_of_data + 20 < CHANNEL5.length) {
+    n5 += increment;
   }
-  if (n6 + number_of_data + 5 < CHANNEL6.length) {
-    n6 += 1;
+  if (n6 + number_of_data + 20 < CHANNEL6.length) {
+    n6 += increment;
   }
-  if (n7 + number_of_data + 5 < CHANNEL7.length) {
-    n7 += 1;
+  if (n7 + number_of_data + 20 < CHANNEL7.length) {
+    n7 += increment;
   }
-  if (n8 + number_of_data + 5 < CHANNEL8.length) {
-    n8 += 1;
+  if (n8 + number_of_data + 20 < CHANNEL8.length) {
+    n8 += increment;
   }
 };
 
